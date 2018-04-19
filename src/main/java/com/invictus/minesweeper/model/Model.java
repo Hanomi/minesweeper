@@ -1,17 +1,12 @@
 package com.invictus.minesweeper.model;
 
-import com.invictus.minesweeper.Controller;
-
-import static com.invictus.minesweeper.Controller.FIELD_SIZE;
-import static com.invictus.minesweeper.Controller.NUMBER_OF_MINES;
-
 public class Model {
     private MineField mineField;
     private boolean isBang;
     private boolean isWin;
 
-    public void startGame() {
-        mineField = new MineField(FIELD_SIZE, NUMBER_OF_MINES);
+    public void startGame(int fieldSize, int numberOfMines) {
+        mineField = new MineField(fieldSize, numberOfMines);
         isBang = false;
         isWin = false;
     }
