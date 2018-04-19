@@ -99,16 +99,27 @@ public class Controller extends MouseAdapter implements ActionListener {
                 view.resetTimer();
                 break;
             case "Set level":
-                String result = JOptionPane.showInputDialog(view, "Enter level number");
+                String enterFieldSize = JOptionPane.showInputDialog(view, "Enter field size");
+                String enterAmountOfMines = JOptionPane.showInputDialog(view, "Enter amount of mines");
+                int tempA = fieldSize;
+                int tempB = numberOfMines;
                 try {
-                    // todo make level
+                    fieldSize = Integer.parseInt(enterFieldSize);
+                    numberOfMines = Integer.parseInt(enterAmountOfMines);
+                    model.startGame(fieldSize, numberOfMines);
+                    view.restart();
+                    view.update();
+                    view.resetTimer();
                 } catch (NumberFormatException e1) {
                     // todo delegate to View
+                    fieldSize = tempA;
+                    numberOfMines = tempB;
                     System.err.println("Level incorrect " + e1.getMessage());
                     JOptionPane.showMessageDialog(view, "Level number incorrect", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
             case "About":
+                // todo About
                 break;
             default:
                 model.startGame(fieldSize, numberOfMines);
