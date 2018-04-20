@@ -57,7 +57,7 @@ public class Model {
 
         if (x < 0 || x > field[0].length - 1 || y < 0 || y > field.length - 1) return; // wrong coordinates
         if (field[y][x].isOpen()) return; // cell is already open
-        if (field[y][x].isFlag()) return;
+        if (field[y][x].isFlag()) return; // don't open flags
         field[y][x].open();
         if (field[y][x].isMine()) {
             field[y][x].bang();
