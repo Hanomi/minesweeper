@@ -99,7 +99,10 @@ public class Controller extends MouseAdapter implements ActionListener {
     }
 
     private void newGame(int...size){
-        if (size.length == 2 && size[0] > 4 && size[1] > 1 && (Math.pow(size[0], 2)/3 > size[1])) {
+        // todo change check function
+        if (size.length == 2
+                && size[0] > 4 && size[1] > 1 && size[0] < 50
+                && (Math.pow(size[0], 2)/3 > size[1])) {
             fieldSize = size[0];
             numberOfMines = size[1];
         }

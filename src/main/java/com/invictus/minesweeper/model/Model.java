@@ -1,5 +1,7 @@
 package com.invictus.minesweeper.model;
 
+import java.util.Arrays;
+
 public class Model {
     private MineField mineField;
     private boolean isBang;
@@ -20,16 +22,12 @@ public class Model {
     }
 
     private void checkWin() {
-        int count = 0;
         Cell[][] field = mineField.getCells();
         int size = field.length * field[0].length;
-        for (int x = 0; x < field.length; x++) {
-            for (int y = 0; y < field[0].length; y++) {
-                if (field[y][x].isFlag()) count++;
-                if (field[y][x].isOpen()) count++;
-            }
-        }
-        isWin = (count == size);
+        isWin = (size == Arrays.stream(field)
+                .flatMap(Arrays::stream)
+                .filter(f -> f.isOpen() || f.isFlag())
+                .count());
     }
 
     public MineField getMineField() {
@@ -72,27 +70,17 @@ public class Model {
     }
 
     private void openAll() {
-        Cell[][] field = mineField.getCells();
-        for (int x = 0; x < field.length; x++) {
-            for (int y = 0; y < field[0].length; y++) {
-                if (field[y][x].isMine()) {
-                    field[y][x].open();
-                }
-            }
-        }
+        Arrays.stream(mineField.getCells())
+                .flatMap(Arrays::stream)
+                .filter(Cell::isMine)
+                .forEach(Cell::open);
         isBang = true;
     }
 
     public int getFlagCount() {
-        int count = 0;
-        Cell[][] field = mineField.getCells();
-        for (int x = 0; x < field.length; x++) {
-            for (int y = 0; y < field[0].length; y++) {
-                if (field[y][x].isFlag()) {
-                    count++;
-                }
-            }
-        }
-        return count;
+        return (int) Arrays.stream(mineField.getCells())
+                .flatMap(Arrays::stream)
+                .filter(Cell::isFlag)
+                .count();
     }
 }
