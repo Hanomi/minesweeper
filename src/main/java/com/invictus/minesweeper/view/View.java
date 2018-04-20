@@ -150,6 +150,7 @@ public class View extends JFrame {
     public void restart() {
         field.setPreferredSize(new Dimension(controller.getFieldSize() * BLOCK_SIZE, controller.getFieldSize() * BLOCK_SIZE));
         pack();
+        update();
     }
 
     public void update() {

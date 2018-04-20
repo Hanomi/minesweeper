@@ -75,57 +75,41 @@ public class Controller extends MouseAdapter implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "Easy":
-                fieldSize = 12;
-                numberOfMines = 14;
-                model.startGame(fieldSize, numberOfMines);
-                view.restart();
-                view.update();
-                view.resetTimer();
+                newGame(12, 14);
                 break;
             case "Medium":
-                fieldSize = 16;
-                numberOfMines = 40;
-                model.startGame(fieldSize, numberOfMines);
-                view.restart();
-                view.update();
-                view.resetTimer();
+                newGame(16, 40);
                 break;
             case "Hard":
-                fieldSize = 22;
-                numberOfMines = 99;
-                model.startGame(fieldSize, numberOfMines);
-                view.restart();
-                view.update();
-                view.resetTimer();
+                newGame(22, 99);
                 break;
             case "Set level":
-                String enterFieldSize = JOptionPane.showInputDialog(view, "Enter field size");
-                String enterAmountOfMines = JOptionPane.showInputDialog(view, "Enter amount of mines");
-                int tempA = fieldSize;
-                int tempB = numberOfMines;
                 try {
-                    fieldSize = Integer.parseInt(enterFieldSize);
-                    numberOfMines = Integer.parseInt(enterAmountOfMines);
-                    model.startGame(fieldSize, numberOfMines);
-                    view.restart();
-                    view.update();
-                    view.resetTimer();
+                    newGame(Integer.parseInt(JOptionPane.showInputDialog(view, "Enter field size")),
+                            Integer.parseInt(JOptionPane.showInputDialog(view, "Enter amount of mines")));
                 } catch (NumberFormatException e1) {
-                    // todo delegate to View
-                    fieldSize = tempA;
-                    numberOfMines = tempB;
-                    System.err.println("Level incorrect " + e1.getMessage());
-                    JOptionPane.showMessageDialog(view, "Level number incorrect", "Error", JOptionPane.ERROR_MESSAGE);
+                    System.err.println("not int " + e1.getMessage());
+                    JOptionPane.showMessageDialog(view, "Level data incorrect", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
             case "About":
                 // todo About
                 break;
             default:
-                model.startGame(fieldSize, numberOfMines);
-                view.update();
-                view.resetTimer();
+                newGame();
         }
+    }
+
+    private void newGame(int...size){
+        if (size.length == 2 && size[0] > 4 && size[1] > 1 && (Math.pow(size[0], 2)/3 > size[1])) {
+            fieldSize = size[0];
+            numberOfMines = size[1];
+        } else {
+            System.out.println("data incorrect: " + size[0] + " , " + size[1]);
+        }
+        model.startGame(fieldSize, numberOfMines);
+        view.resetTimer();
+        view.restart();
     }
 
     public String getMineCount() {
