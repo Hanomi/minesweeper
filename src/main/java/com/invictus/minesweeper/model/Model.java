@@ -75,7 +75,9 @@ public class Model {
         Cell[][] field = mineField.getCells();
         for (int x = 0; x < field.length; x++) {
             for (int y = 0; y < field[0].length; y++) {
-                field[y][x].open();
+                if (field[y][x].isMine()) {
+                    field[y][x].open();
+                }
             }
         }
         isBang = true;
