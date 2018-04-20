@@ -61,13 +61,11 @@ public class Controller extends MouseAdapter implements ActionListener {
         view.update();
         if (model.isBang()) {
             view.gameOver();
-            model.startGame(fieldSize, numberOfMines);
-            view.update();
+            newGame();
         }
         if (model.isWin()) {
             view.gameWin();
-            model.startGame(fieldSize, numberOfMines);
-            view.update();
+            newGame();
         }
     }
 
@@ -104,8 +102,6 @@ public class Controller extends MouseAdapter implements ActionListener {
         if (size.length == 2 && size[0] > 4 && size[1] > 1 && (Math.pow(size[0], 2)/3 > size[1])) {
             fieldSize = size[0];
             numberOfMines = size[1];
-        } else {
-            System.out.println("data incorrect: " + size[0] + " , " + size[1]);
         }
         model.startGame(fieldSize, numberOfMines);
         view.resetTimer();

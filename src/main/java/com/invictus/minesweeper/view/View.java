@@ -127,19 +127,8 @@ public class View extends JFrame {
         return menuBar;
     }
 
-    public MineField getMineField() {
+    MineField getMineField() {
         return controller.getMineField();
-    }
-
-    public void gameOver() {
-        timer.stopTimer();
-        smileButton.setText(":-(");
-        JOptionPane.showMessageDialog(this,
-                "YOU DIED", // like dark souls
-                "Game over",
-                JOptionPane.ERROR_MESSAGE);
-        timer.resetTimer();
-        smileButton.setText(":-)");
     }
 
     public void resetTimer() {
@@ -167,6 +156,15 @@ public class View extends JFrame {
                         "mine count: " + controller.getNumberOfMines(),
                 "You win.",
                 JOptionPane.INFORMATION_MESSAGE);
-        timer.resetTimer();
+    }
+
+    public void gameOver() {
+        timer.stopTimer();
+        smileButton.setText(":-(");
+        JOptionPane.showMessageDialog(this,
+                "YOU DIED", // like dark souls
+                "Game over",
+                JOptionPane.ERROR_MESSAGE);
+        smileButton.setText(":-)");
     }
 }
